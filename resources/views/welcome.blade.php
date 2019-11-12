@@ -9,6 +9,9 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
+        {{-- Bootstrap --}}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+
         <!-- Styles -->
         <style>
             html, body {
@@ -67,46 +70,36 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     </head>
     <body>
-            {{-- <div>
-                <span>Total: {{$data->count}}</span>
-            </div>
-            <div>
-                <table>
-                @foreach($data->results as $value)
-                    <tr>
-                        <td>{{$value->name}}</td>
-                        <td><a href="{{$value->url}}">Detalhes</a></td>
-                    </tr>
-                @endforeach
-                </table>
-            </div>
-            <a href="{{route('index.next.page', $page['next'])}}">Proximo</a>
-            @if($page['prev']>0)
-                <a href="{{route('index.prev.page', $page['prev'])}}">Anterior</a>
-            @endif
-            <button id="buton-teste" value="{{$data->next}}">Teste</button> --}}
-            <div class="content">
-                <table id="poke-table"></table>
-                <div id="button"></div>
-            </div>
+        <main class="container-fluid">
+            <div class="row justify-content-center" id="poke-table"></div>
+            <div id="button"></div>
+        </main>
     </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"  crossorigin="anonymous"></script>
+
     <script>
             $(document).ready(function() {
                 var url = "https://pokeapi.co/api/v2/pokemon";
                 var im;
                 $.getJSON(url, function(data){
                     $.each(data.results, function(index, value){
-
                         $("#poke-table").append(
-                            "<tr>"
-                            +"<td id='img-"+value.name+"'></td>"
-                            +"<td>"+value.name+"</td>"
-                            +"<td>"+value.url+"</td>"
-                            +"</tr>"
+                            "<div class='card border-success ml-3 col-md-3 col-sm-6 col-xs-6 mb-3 poke-card'>"
+                                +"<div class='row no-gutters'>"
+                                    +"<div class='col-md-4 col-sm-6 col-xs-6' id='img-"+value.name+"'></div>"
+                                    +"<div class='col-md-8 col-sm-6 col-xs-6'>"
+                                        +"<div class='card-body bg-dark text-white'>"
+                                            +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
+                                            +"<p class='card-text'>"+value.url+"</td>"
+                                        +"</div>"
+                                    +"</div>"
+                                +"</div>"
+                            +"</div>"
                         );
 
                         $.getJSON(value.url, function(data){
-                            $("#img-"+data.name).append("<img src='"+data.sprites.front_default+"'>");
+                            $("#img-"+data.name).append("<img class='card-img' src='"+data.sprites.front_default+"'>");
                         });
                     })
 
@@ -120,20 +113,26 @@
 
             $(document).on('click', '.poke-button',function(){
                 var url = $(this).val();
-                $('tr').remove();
+                $('div .poke-card').remove();
                 $('.poke-button').remove();
                 $.getJSON(url, function(data){
                     $.each(data.results, function(index, value){
                         $("#poke-table").append(
-                            "<tr>"
-                            +"<td id='img-"+value.name+"'></td>"
-                            +"<td>"+value.name+"</td>"
-                            +"<td>"+value.url+"</td>"
-                            +"</tr>"
+                            "<div class='card border-success ml-3 col-md-3 col-sm-6 col-xs-6 mb-3 poke-card'>"
+                                +"<div class='row no-gutters'>"
+                                    +"<div class='col-md-4 col-sm-6 col-xs-6' id='img-"+value.name+"'></div>"
+                                    +"<div class='col-md-8 col-sm-6 col-xs-6'>"
+                                        +"<div class='card-body bg-dark text-white'>"
+                                            +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
+                                            +"<p class='card-text'>"+value.url+"</td>"
+                                        +"</div>"
+                                    +"</div>"
+                                +"</div>"
+                            +"</div>"
                         );
 
                         $.getJSON(value.url, function(data){
-                            $("#img-"+data.name).append("<img src='"+data.sprites.front_default+"'>");
+                            $("#img-"+data.name).append("<img  class='card-img' src='"+data.sprites.front_default+"'>");
                         });
                     })
 
