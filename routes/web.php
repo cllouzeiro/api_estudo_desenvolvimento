@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/next/{ind}', 'ApiController@nextPage')->name('index.next.page');
+// Route::get('/prev/{ind}', 'ApiController@prevPage')->name('index.prev.page');
+
+// Route::get('/ajax', [
+// 	'uses'=>'ApiController@ajax',
+// 	'url'=>Input::get('url')
+// ])->name('ajax.request');

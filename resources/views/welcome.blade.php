@@ -62,38 +62,86 @@
                 margin-bottom: 30px;
             }
         </style>
+        {{-- jquery --}}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+            {{-- <div>
+                <span>Total: {{$data->count}}</span>
             </div>
-        </div>
+            <div>
+                <table>
+                @foreach($data->results as $value)
+                    <tr>
+                        <td>{{$value->name}}</td>
+                        <td><a href="{{$value->url}}">Detalhes</a></td>
+                    </tr>
+                @endforeach
+                </table>
+            </div>
+            <a href="{{route('index.next.page', $page['next'])}}">Proximo</a>
+            @if($page['prev']>0)
+                <a href="{{route('index.prev.page', $page['prev'])}}">Anterior</a>
+            @endif
+            <button id="buton-teste" value="{{$data->next}}">Teste</button> --}}
+            <div class="content">
+                <table id="poke-table"></table>
+                <div id="button"></div>
+            </div>
     </body>
+    <script>
+            $(document).ready(function() {
+                var url = "https://pokeapi.co/api/v2/pokemon";
+                var im;
+                $.getJSON(url, function(data){
+                    $.each(data.results, function(index, value){
+
+                        $("#poke-table").append(
+                            "<tr>"
+                            +"<td id='img-"+value.name+"'></td>"
+                            +"<td>"+value.name+"</td>"
+                            +"<td>"+value.url+"</td>"
+                            +"</tr>"
+                        );
+
+                        $.getJSON(value.url, function(data){
+                            $("#img-"+data.name).append("<img src='"+data.sprites.front_default+"'>");
+                        });
+                    })
+
+                    if(data.previous != null){
+                        $("#button").append("<button class='poke-button' class='page' value="+data.previous+">Previous</button>");
+                    }
+
+                    $("#button").append("<button class='poke-button' class='page' value="+data.next+">Next</button>");
+                });
+            })
+
+            $(document).on('click', '.poke-button',function(){
+                var url = $(this).val();
+                $('tr').remove();
+                $('.poke-button').remove();
+                $.getJSON(url, function(data){
+                    $.each(data.results, function(index, value){
+                        $("#poke-table").append(
+                            "<tr>"
+                            +"<td id='img-"+value.name+"'></td>"
+                            +"<td>"+value.name+"</td>"
+                            +"<td>"+value.url+"</td>"
+                            +"</tr>"
+                        );
+
+                        $.getJSON(value.url, function(data){
+                            $("#img-"+data.name).append("<img src='"+data.sprites.front_default+"'>");
+                        });
+                    })
+
+                    if(data.previous != null){
+                        $("#button").append("<button class='poke-button' class='page' value="+data.previous+">Previous</button>");
+                    }
+                    $("#button").append("<button class='poke-button' class='page' value="+data.next+">Next</button>");
+                });
+            });
+    </script>
 </html>
