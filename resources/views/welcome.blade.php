@@ -91,7 +91,7 @@
                                     +"<div class='col-md-8 col-sm-6 col-xs-6'>"
                                         +"<div class='card-body bg-dark text-white'>"
                                             +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
-                                            +"<p class='card-text'>"+value.url+"</td>"
+                                            +"<p id='abilidades-"+value.name+"' class='card-text'></p>"
                                         +"</div>"
                                     +"</div>"
                                 +"</div>"
@@ -100,6 +100,9 @@
 
                         $.getJSON(value.url, function(data){
                             $("#img-"+data.name).append("<img class='card-img' src='"+data.sprites.front_default+"'>");
+                            $.each(data.abilities, function(index, value){
+                                $("#abilidades-"+data.name).append("<span>"+value.ability.name+"</span><br>");
+                            })
                         });
                     })
 
@@ -124,7 +127,7 @@
                                     +"<div class='col-md-8 col-sm-6 col-xs-6'>"
                                         +"<div class='card-body bg-dark text-white'>"
                                             +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
-                                            +"<p class='card-text'>"+value.url+"</td>"
+                                            +"<p id='abilidades-"+value.name+"' class='card-text'></p>"
                                         +"</div>"
                                     +"</div>"
                                 +"</div>"
@@ -133,6 +136,9 @@
 
                         $.getJSON(value.url, function(data){
                             $("#img-"+data.name).append("<img  class='card-img' src='"+data.sprites.front_default+"'>");
+                            $.each(data.abilities, function(index, value){
+                                $("#abilidades-"+data.name).append("<span>"+value.ability.name+"</span><br>");
+                            })
                         });
                     })
 
