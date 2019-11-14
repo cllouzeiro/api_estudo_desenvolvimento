@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ApiController@index')->name('index.page'); 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/next/{ind}', 'ApiController@nextPage')->name('index.next.page');
 // Route::get('/prev/{ind}', 'ApiController@prevPage')->name('index.prev.page');

@@ -85,23 +85,19 @@
                 $.getJSON(url, function(data){
                     $.each(data.results, function(index, value){
                         $("#poke-table").append(
-                            "<div class='card border-success ml-3 col-md-3 col-sm-6 col-xs-6 mb-3 poke-card'>"
-                                +"<div class='row no-gutters'>"
-                                    +"<div class='col-md-4 col-sm-6 col-xs-6' id='img-"+value.name+"'></div>"
-                                    +"<div class='col-md-8 col-sm-6 col-xs-6'>"
-                                        +"<div class='card-body bg-dark text-white'>"
-                                            +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
-                                            +"<p id='abilidades-"+value.name+"' class='card-text'></p>"
-                                        +"</div>"
+                            "<div class='col-md-2 col-sm-3 col-xs-3 poke-card'>"
+                                    +"<div class='card-body'>"
+                                        +"<h5 class='card-title font-weight-bolder'>"+value.name.toUpperCase()+"</h5>"
+                                        +"<span id='img-"+value.name+"'></span>"
+                                        +"<h3 id='abilidades-"+value.name+"' class='card-text'></h3>"
                                     +"</div>"
-                                +"</div>"
                             +"</div>"
                         );
 
                         $.getJSON(value.url, function(data){
-                            $("#img-"+data.name).append("<img class='card-img' src='"+data.sprites.front_default+"'>");
+                            $("#img-"+data.name).append("<img class='card-img col-6' src='"+data.sprites.front_default+"'>");
                             $.each(data.abilities, function(index, value){
-                                $("#abilidades-"+data.name).append("<span>"+value.ability.name+"</span><br>");
+                                $("#abilidades-"+data.name).append(value.ability.name+"<br>");
                             })
                         });
                     })
@@ -121,16 +117,12 @@
                 $.getJSON(url, function(data){
                     $.each(data.results, function(index, value){
                         $("#poke-table").append(
-                            "<div class='card border-success ml-3 col-md-3 col-sm-6 col-xs-6 mb-3 poke-card'>"
-                                +"<div class='row no-gutters'>"
-                                    +"<div class='col-md-4 col-sm-6 col-xs-6' id='img-"+value.name+"'></div>"
-                                    +"<div class='col-md-8 col-sm-6 col-xs-6'>"
-                                        +"<div class='card-body bg-dark text-white'>"
-                                            +"<h5 class='card-title  font-weight-bold'>"+value.name+"</h5>"
-                                            +"<p id='abilidades-"+value.name+"' class='card-text'></p>"
-                                        +"</div>"
+                            "<div class='card border-success ml-3 col-md-2 col-sm-6 col-xs-6 mb-3 poke-card'>"
+                                    +"<div class='card-body'>"
+                                        +"<h5 class='card-title font-weight-bolder'>"+value.name.toUpperCase()+"</h5>"
+                                        +"<span id='img-"+value.name+"'></span>"
+                                        +"<h3 id='abilidades-"+value.name+"' class='card-text'></h3>"
                                     +"</div>"
-                                +"</div>"
                             +"</div>"
                         );
 
